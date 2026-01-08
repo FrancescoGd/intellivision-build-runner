@@ -1,0 +1,31 @@
+# Top-most EditorConfig file
+root = true
+
+# Default settings for all files
+[*]
+charset = utf-8
+end_of_line = crlf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# PowerShell scripts
+[*.ps1]
+indent_style = space
+indent_size = 4
+max_line_length = 120
+# Ensure UTF-8 without BOM for cross-platform compatibility
+charset = utf-8
+
+# PowerShell data files
+[*.psd1]
+indent_style = space
+indent_size = 4
+
+# PowerShell module manifest files
+[*.psm1]
+indent_style = space
+indent_size = 4
+
+# Markdown documentation
+[*.md]
+trim_trailing_whitespace = false
