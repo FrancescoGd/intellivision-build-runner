@@ -16,9 +16,11 @@ A _PowerShell_ script to compile, assemble, and launch _IntyBASIC_ projects auto
 ## Parameter and Aliases
 
 - **-source**
+
   Aliases: `-f`, `-name`, `-project`
 
 - **-syntaxcheck**
+
   Aliases: `-sc`, `-checkonly`, `-syntax`, `-checksyntax`
 
 ## Usage
@@ -49,8 +51,8 @@ This project is released under the MIT License.
 
 **Commercial use is permitted, but I kindly ask to contact the author if you plan to include this software in a commercial product or service.**
 
-## Author
+## Links
 
-Nibunnoichi aka Peter Pepper
-Website: [https://inty.furinkan.org/](https://inty.furinkan.org/)
-Repository: [https://github.com/FrancescoGd/ibb/](https://github.com/FrancescoGd/ibb/)
+[Website](https://inty.furinkan.org/)
+
+[Repository](https://github.com/FrancescoGd/ibb/)
