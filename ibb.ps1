@@ -41,7 +41,7 @@
 # IBB - IntyBASIC Builder
 # Compile, Assemble and Launch an IntyBASIC source
 #
-# Version   : 1.0.0
+# Version   : 1.0.1
 # Author    : fgd
 # Copyright : 2025, present
 # Info      : https://inty.furinkan.org/
