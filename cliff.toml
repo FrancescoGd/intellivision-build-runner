@@ -1,0 +1,55 @@
+[changelog]
+header = '''
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
+'''
+
+footer = '''
+---
+
+Supported commit types:
+- `feat`: New features
+- `fix`: Bug fixes
+- `docs`: Documentation changes
+- `style`: Code style updates (formatting, whitespace, etc.)
+- `refactor`: Code refactoring without functional changes
+- `test`: Adding or updating tests
+- `chore`: Maintenance tasks
+
+Generated automatically with [git-cliff](https://github.com/orhun/git-cliff)
+'''
+
+[git]
+conventional_commits = true
+filter_commits = false
+sort_commits = "newest"
+
+[git.tag]
+order = "desc"
+
+[commit_parsers]
+"*" = { pattern = "^(?P<type>\\w+)(\\((?P<scope>.*)\\))?: (?P<subject>.*)", body = true }
+
+[commit_types]
+"feat" = { name = "Features", section = "✨ Features" }
+"fix" = { name = "Bug Fixes", section = "🐛 Bug Fixes" }
+"docs" = { name = "Documentation", section = "📝 Documentation" }
+"style" = { name = "Style", section = "💄 Style" }
+"refactor" = { name = "Refactoring", section = "🔨 Refactoring" }
+"test" = { name = "Tests", section = "✅ Tests" }
+"chore" = { name = "Chores", section = "🔧 Chores" }
+"*" = { name = "Other", section = "📦 Miscellaneous" }
+
+[template]
+tag = '''
+## [{{ tag.name }}]({{ tag.url }}) - {{ tag.date }}
+{{ tag.body }}
+'''
+
+commit = '''
+- {{ commit.message }} ({{ commit.author.name }})
+'''
