@@ -86,6 +86,26 @@ A _PowerShell_ script to compile, assemble, and launch _IntyBASIC_ projects auto
 
 💡 **Note** that you can omit the file extension in `<filename>` and it is also case-insensitive. Any path section will be purged too.
 
+### Getting Help
+
+- For a quick usage summary, you can run:
+
+  ```powershell
+  .\ibb.ps1 -h
+  .\ibb.ps1 -help
+  .\ibb.ps1 -?
+  ```
+
+  Any of these - including running the script with no parameters at all - will display a concise help message and exit.
+
+- For full documentation, use the built-in PowerShell help system:
+
+  ```powershell
+  Get-Help .\ibb.ps1 -Full
+  ```
+
+  This will show all details, including parameters, examples, and notes.
+
 ## License
 
 This project is released under the MIT License.

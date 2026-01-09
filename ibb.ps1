@@ -147,6 +147,23 @@ function Find-Tool {
 #===============================================================================
 Test-Params
 
+# Normalize input: remove path and extensions if present
+$source = [System.IO.Path]::GetFileNameWithoutExtension($source)
+
+Write-Host "`nParameters received:" -ForegroundColor Green
+Write-Host "- Source File: $source" -ForegroundColor Green
+if ($syntaxcheck) {
+    Write-Host "- Will execute syntax checking only" -ForegroundColor Green
+}
+
+# Check if the .bas file exists before proceeding
+$basFile = ".\$source.bas"
+if (-not (Test-Path $basFile)) {
+    Write-Host "`n❌ Source file '$basFile' not found. Compilation cannot proceed." -ForegroundColor Red
+    Write-Host "Suggestion: Please check the filename and ensure the .bas file exists in the current directory." -ForegroundColor Yellow
+    exit
+}
+
 # Tool detection at startup
 $intyBasicPath = Find-Tool -exeName "intybasic.exe" -folderHint "intybasic" -envVars @("INTV_BASIC_PATH", "INTV_SDK_PATH")
 $as1600Path    = Find-Tool -exeName "as1600.exe" -folderHint "jzintv\bin" -envVars @("INTV_SDK_PATH")
@@ -168,10 +185,6 @@ if (-not $jzintvPath) {
     exit
 }
 
-# Normalize input: remove path and .bas extension if present
-$source = [System.IO.Path]::GetFileNameWithoutExtension($source)
-
-Write-Host "`nParameter received: $source`n" -ForegroundColor Green
 
 # Compile .bas file into .asm using IntyBASIC
 Write-Host "🏗️ Compiling $source.bas => $source.asm..." -ForegroundColor Yellow
