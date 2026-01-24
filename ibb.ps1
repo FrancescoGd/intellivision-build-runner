@@ -166,8 +166,9 @@ if (-not (Test-Path $basFile)) {
 
 # Tool detection at startup
 $intyBasicPath = Find-Tool -exeName "intybasic.exe" -folderHint "intybasic" -envVars @("INTV_BASIC_PATH", "INTV_SDK_PATH")
-$as1600Path    = Find-Tool -exeName "as1600.exe" -folderHint "jzintv\bin" -envVars @("INTV_SDK_PATH")
+$as1600Path    = Find-Tool -exeName "as1600.exe" -folderHint "jzintv\bin" -envVars @("JZINTV_HOME", "INTV_SDK_PATH")
 $jzintvPath    = Find-Tool -exeName "jzintv.exe" -folderHint "jzintv\bin" -envVars @("JZINTV_HOME", "INTV_SDK_PATH")
+$bin2RomPath   = Find-Tool -exeName "bin2rom.exe" -folderHint "jzintv\bin" -envVars @("JZINTV_HOME", "INTV_SDK_PATH")
 
 if (-not $intyBasicPath) {
     Write-Host "`n❌ intybasic.exe not found. Compilation cannot proceed." -ForegroundColor Red
@@ -184,10 +185,13 @@ if (-not $jzintvPath) {
     Write-Host "Suggestion: [placeholder] Please ensure Jzintv is installed and its folder is in your PATH or set the appropriate environment variable." -ForegroundColor Yellow
     exit
 }
-
+if (-not $bin2RomPath) {
+    # Note: i don't force-exit the script if everything except this was OK, this is considered an additional step.
+    Write-Host "`n⚠️ bin2rom.exe not found. Execution will proceed without creating the additional ROM format (BIN will be created normally)." -ForegroundColor Yellow
+}
 
 # Compile .bas file into .asm using IntyBASIC
-Write-Host "🏗️ Compiling $source.bas => $source.asm..." -ForegroundColor Yellow
+Write-Host "`n🏗️ Compiling $source.bas => $source.asm..." -ForegroundColor Yellow
 & $intyBasicPath ".\$source.bas" ".\$source.asm"
 if ($LASTEXITCODE -ne 0) {
     Write-Host "`n❌ Compilation failed! The .bas file could not be compiled to .asm." -ForegroundColor Red
@@ -200,13 +204,22 @@ if ($syntaxcheck) {
     exit
 }
 
-
 # Assemble .asm file into .bin using AS1600
-Write-Host "🎁 Assembling $source.asm => $source.bin..." -ForegroundColor Cyan
+Write-Host "`n🎁 Assembling $source.asm => $source.bin..." -ForegroundColor Cyan
 & $as1600Path -o "$source.bin" "$source.asm"
 if ($LASTEXITCODE -ne 0) {
     Write-Host "`n❌ Assembly failed! The .asm file could not be assembled to .bin." -ForegroundColor Red
     exit
+}
+
+# Create the additional .rom format using BIN2ROM
+if ($bin2RomPath) {
+    Write-Host "`n➡️ Creating also $source.bin => $source.rom..." -ForegroundColor Cyan
+    & $bin2RomPath "$source.bin"
+    if ($LASTEXITCODE -ne 0) {
+        # Note: i don't force-exit the script if everything except this was OK, this is just an additional step.
+        Write-Host "`n⚠️ Conversion failed! The .bin file could not be converted to .rom." -ForegroundColor Yellow
+    }
 }
 
 # Launch resulting .bin file using Jzintv
