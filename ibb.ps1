@@ -57,6 +57,8 @@ param(
     [Alias("sc", "checkonly", "syntax", "checksyntax")]
     [switch]$syntaxcheck,
 
+    [string]$outputfolder,
+
     [Alias("h", "?")]
     [switch]$help
 )
@@ -225,7 +227,28 @@ if ($bin2RomPath) {
     }
 }
 
+# Move final assets in destination dir if selected
+if ($outputfolder) {
+    Write-Host "`n"
+    if (-not (Test-Path $outputfolder)) {
+        # If destination dir doesn't exist, create it
+        New-Item -ItemType Directory -Path $outputfolder | Out-Null
+    }
+    $finalAssets = @("$source.bin", "$source.rom", "$source.cfg")
+    foreach ($asset in $finalAssets) {
+        if (Test-Path $asset) {
+            Move-Item $asset (Join-Path $outputfolder $asset) -Force
+            Write-Host "➡️ Moved $asset to $outputfolder" -ForegroundColor Green
+        }
+    }
+}
+
+# Path for launching Jzintv
+if ($outputfolder) {
+    $binPath = Join-Path $outputfolder "$source.bin"
+} else {
+    $binPath = ".\$source.bin"
+}
 # Launch resulting .bin file using Jzintv
-Write-Host "`n"
-Write-Host "🚀 Executing $source.bin..." -ForegroundColor Magenta
-& $jzintvPath ".\$source.bin"
+Write-Host "`n🚀 Executing $binPath..." -ForegroundColor Magenta
+& $jzintvPath $binPath
