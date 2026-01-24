@@ -50,10 +50,15 @@
 
 # Check for [source] param and display help if not provided
 param(
+    [Parameter(Position=0)]
     [Alias("f", "name", "project")]
     [string]$source,
+
     [Alias("sc", "checkonly", "syntax", "checksyntax")]
-    [switch]$syntaxcheck
+    [switch]$syntaxcheck,
+
+    [Alias("h", "?")]
+    [switch]$help
 )
 
 Clear-Host
@@ -85,9 +90,7 @@ function Show-Help {
 # Check if the params passed to the script are valid or are missing altogether
 #===============================================================================
 function Test-Params {
-    # Check for explicit help request in arguments
-    $helpSwitches = @("-h", "-help", "-?")
-    if (-not $source -or $helpSwitches -contains $source.ToLower()) {
+    if ($help -or -not $source) {
         Show-Help
         exit
     }
