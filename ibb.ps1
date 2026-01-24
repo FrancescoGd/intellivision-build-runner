@@ -1,28 +1,43 @@
-
 <#
 .SYNOPSIS
     Compile, assemble, and launch an IntyBASIC project automatically.
 
 .DESCRIPTION
     IBB - IntyBASIC Builder is a PowerShell script that automates the compilation (.bas -> .asm),
-    assembly (.asm -> .bin), and execution of IntyBASIC source files using intybasic, as1600, and jzintv.
+    assembly (.asm -> .bin), optional ROM conversion (.bin -> .rom), and execution of IntyBASIC source files
+    using intybasic, as1600, bin2rom (optional), and jzintv.
     It intelligently searches for required tools (PATH, environment variables, Get-Command) and displays clear, colored messages.
+    Final output files (.bin, .rom, .cfg) can be moved to a custom output folder.
 
 .PARAMETER source
     The name of the IntyBASIC source file (the .bas extension is not needed).
+    Can be specified as the first positional argument or with the -source flag.
     Aliases: -f, -name, -project
 
 .PARAMETER syntaxcheck
     If specified, only compile the .bas file and stop (syntax check only).
     Aliases: -sc, -checkonly, -syntax, -checksyntax
 
-.EXAMPLE
-    .\ibb.ps1 -source example
-    Compiles example.bas, assembles it, and launches it with Jzintv.
+.PARAMETER outputfolder
+    If specified, moves the final .bin, .rom, and .cfg files to the given folder (created if it doesn't exist).
+    Jzintv will be launched from this folder.
+    No aliases yet.
+
+.PARAMETER help
+    Shows a concise usage summary and exits.
+    Aliases: -h, -?
 
 .EXAMPLE
-    .\ibb.ps1 -source example -syntaxcheck
-    Only compiles example.bas to check for syntax errors
+    .\ibb.ps1 demo
+    Compiles demo.bas, assembles it, and launches it with Jzintv.
+
+.EXAMPLE
+    .\ibb.ps1 demo -syntaxcheck
+    Only compiles demo.bas to check for syntax errors.
+
+.EXAMPLE
+    .\ibb.ps1 demo -outputfolder dist
+    Compiles, assembles, and moves demo.bin, demo.rom, and demo.cfg to the 'dist' folder, then launches Jzintv from there.
 
 .NOTES
     Author: fgd
@@ -30,10 +45,8 @@
 
 .LINK
     https://inty.furinkan.org/
-
 .LINK
     https://github.com/FrancescoGd/ibb/
-
 #>
 
 #===============================================================================
@@ -77,11 +90,11 @@ function Show-Help {
     Write-Host "`n💡 IBB - IntyBASIC Builder" -ForegroundColor Blue
     Write-Host "Compile, assemble and launch an IntyBASIC source file." -ForegroundColor Blue
     Write-Host "`nUsage:" -ForegroundColor Yellow
-    Write-Host ".\ibb.ps1 -source <filename> [-syntaxcheck]" -ForegroundColor Green
-    Write-Host "Example:" -ForegroundColor Yellow
-    Write-Host ".\ibb.ps1 -source example" -ForegroundColor Cyan
-    Write-Host ".\ibb.ps1 -source example -syntaxcheck" -ForegroundColor Cyan
-    Write-Host "`n-syntaxcheck : Only compile the .bas file and stop (syntax check only)." -ForegroundColor Yellow
+    Write-Host ".\ibb.ps1 <filename> [-syntaxcheck] [-outputfolder <folder>]" -ForegroundColor Green
+    Write-Host "Examples:" -ForegroundColor Yellow
+    Write-Host ".\ibb.ps1 demo" -ForegroundColor Cyan
+    Write-Host ".\ibb.ps1 demo -syntaxcheck" -ForegroundColor Cyan
+    Write-Host ".\ibb.ps1 demo -outputfolder dist" -ForegroundColor Cyan
     Write-Host "`nFor detailed help, run: Get-Help .\ibb.ps1 -Full" -ForegroundColor Yellow
     Write-Host "`n"
     exit

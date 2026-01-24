@@ -8,8 +8,9 @@ A _PowerShell_ script to compile, assemble, and launch _IntyBASIC_ projects auto
 
 ## Features
 
-- Automatic detection of required tools (`intybasic`, `as1600`, `jzintv`)
+- Automatic detection of required tools (`intybasic`, `as1600`, `jzintv` and optional `bin2rom`)
 - Syntax check-only mode (`-syntaxcheck`)
+- Output folder support (`-outputfolder`) to store final assets
 - Colored and clear status messages
 - Usage help and parameter aliases
 
@@ -30,6 +31,7 @@ A _PowerShell_ script to compile, assemble, and launch _IntyBASIC_ projects auto
 
 - **IntyBASIC**, **AS1600**, and **Jzintv** must be installed and available on your system.
 - These tools do not have installers; simply download and extract them, then add their folders to your `PATH` or set the appropriate environment variables (`INTV_BASIC_PATH`, `INTV_SDK_PATH`, `JZINTV_HOME`).
+- Optionally, you can also add **Bin2rom** for ROM file creation (it usually comes bundled with Jzintv and AS1600).
 
 ### 4. First Run
 
@@ -38,13 +40,19 @@ A _PowerShell_ script to compile, assemble, and launch _IntyBASIC_ projects auto
 - Run the script as shown in the usage examples:
 
 ```powershell
-.\ibb.ps1 -source <filename>
+.\ibb.ps1 <filename>
 ```
 
 - For syntax check only:
 
 ```powershell
-.\ibb.ps1 -source <filename> -syntaxcheck
+.\ibb.ps1 <filename> -syntaxcheck
+```
+
+- To move final assets to a custom folder:
+
+```powershell
+.\ibb.ps1 <filename> -outputfolder dist
 ```
 
 ### 5. Troubleshooting
@@ -58,31 +66,35 @@ A _PowerShell_ script to compile, assemble, and launch _IntyBASIC_ projects auto
 
 ### Basic Usage
 
-```powershell
-.\ibb.ps1 -source <filename> [-syntaxcheck]
-```
-
-#### Examples
-
-- Compile, assemble, and launch:
+You can specify the source file either as the first positional argument or with the `-source` flag (and its aliases):
 
 ```powershell
-.\ibb.ps1 -source example
+.\ibb.ps1 demo
+.\ibb.ps1 -source demo
+.\ibb.ps1 demo -syntaxcheck
+.\ibb.ps1 demo -outputfolder dist
 ```
 
-- Syntax check only:
-
-```powershell
-.\ibb.ps1 -source example -syntaxcheck
-```
+- `outputfolder <folder>`: Moves the final .bin, .rom, and .cfg files to the specified folder (created if it doesn't exist). Jzintv will be launched from that folder.
+- All intermediate files remain in the working directory.
 
 ### Parameters and Aliases
 
 - **-source**
+
   Aliases: `-f`, `-name`, `-project`
 
 - **-syntaxcheck**
+
   Aliases: `-sc`, `-checkonly`, `-syntax`, `-checksyntax`
+
+- **-outputfolder**
+
+  No aliases yet
+
+- **-help**
+
+  Aliases: `-?`, `-h`
 
 💡 **Note** that you can omit the file extension in `<filename>` and it is also case-insensitive. Any path section will be purged too.
 
@@ -91,9 +103,8 @@ A _PowerShell_ script to compile, assemble, and launch _IntyBASIC_ projects auto
 - For a quick usage summary, you can run:
 
   ```powershell
-  .\ibb.ps1 -h
-  .\ibb.ps1 -help
   .\ibb.ps1 -?
+  .\ibb.ps1 -h
   ```
 
   Any of these - including running the script with no parameters at all - will display a concise help message and exit.
