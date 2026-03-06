@@ -3,7 +3,7 @@
 # IBB Release Script
 # Generate changelog, commit, tag, and push a new release for IBB
 #
-# Version   : 1.0.2
+# Version   : 1.0.4
 # Author    : fgd
 # Copyright : 2025, present
 # Info      : https://inty.furinkan.org/

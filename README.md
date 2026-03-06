@@ -8,9 +8,10 @@ A _PowerShell_ script to compile, assemble, and launch _IntyBASIC_ projects auto
 
 ## Features
 
-- Automatic detection of required tools (`intybasic`, `as1600`, `jzintv` and optional `bin2rom`)
+- Automatic detection of required tools (`intybasic`, `as1600`, `jzintv`)
 - Syntax check-only mode (`-syntaxcheck`)
-- Output folder support (`-outputfolder`) to store final assets
+- Optional ROM output mode (`-rom`)
+- Output folder support (`-outputfolder`) to move final assets
 - Colored and clear status messages
 - Usage help and parameter aliases
 
@@ -31,7 +32,6 @@ A _PowerShell_ script to compile, assemble, and launch _IntyBASIC_ projects auto
 
 - **IntyBASIC**, **AS1600**, and **Jzintv** must be installed and available on your system.
 - These tools do not have installers; simply download and extract them, then add their folders to your `PATH` or set the appropriate environment variables (`INTV_BASIC_PATH`, `INTV_SDK_PATH`, `JZINTV_HOME`).
-- Optionally, you can also add **Bin2rom** for ROM file creation (it usually comes bundled with Jzintv and AS1600).
 
 ### 4. First Run
 
@@ -47,6 +47,12 @@ A _PowerShell_ script to compile, assemble, and launch _IntyBASIC_ projects auto
 
 ```powershell
 .\ibb.ps1 <filename> -syntaxcheck
+```
+
+- To output a ROM instead of BIN+CFG:
+
+```powershell
+.\ibb.ps1 <filename> -rom
 ```
 
 - To move final assets to a custom folder:
@@ -72,10 +78,15 @@ You can specify the source file either as the first positional argument or with 
 .\ibb.ps1 demo
 .\ibb.ps1 -source demo
 .\ibb.ps1 demo -syntaxcheck
+.\ibb.ps1 demo -rom
 .\ibb.ps1 demo -outputfolder dist
+.\ibb.ps1 demo -rom -outputfolder dist
 ```
 
-- `outputfolder <folder>`: Moves the final .bin, .rom, and .cfg files to the specified folder (created if it doesn't exist). Jzintv will be launched from that folder.
+- `-rom`: Produces a single `.rom` output using AS1600 (instead of the default `.bin` + `.cfg`).
+- `-outputfolder <folder>`: Moves the final output files to the specified folder (created if it doesn't exist) and launches Jzintv from there.
+  - In **BIN+CFG** mode (default): moves `.bin` and (if present) `.cfg`.
+  - In **ROM** mode (`-rom`): moves `.rom`.
 - All intermediate files remain in the working directory.
 
 ### Parameters and Aliases
@@ -90,6 +101,9 @@ You can specify the source file either as the first positional argument or with 
 
 - **-outputfolder**
 
+  No aliases yet
+
+- **-rom**
   No aliases yet
 
 - **-help**
