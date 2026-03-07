@@ -1,9 +1,9 @@
 #===============================================================================
 #
-# IBB Release Script
-# Generate changelog, commit, tag, and push a new release for IBB
+# Intellivision Build Runner (IVBR) - Release Script
+# Generate changelog, commit, tag, and push a new release
 #
-# Version   : 1.0.2
+# Version   : 1.0.4
 # Author    : fgd
 # Copyright : 2025, present
 # Info      : https://inty.furinkan.org/
@@ -12,8 +12,8 @@
 param (
     [Parameter(Mandatory = $true)]
     [string]$Version,
-    [string]$ScriptFile = "ibb.ps1",
-    [string]$ProjectName = "IBB"
+    [string]$ScriptFile = "ivbr.ps1",
+    [string]$ProjectName = "Intellivision Build Runner (IVBR)"
 )
 Write-Host "=== Starting release process for $ProjectName v$Version (PowerShell) ===" -ForegroundColor Cyan
 

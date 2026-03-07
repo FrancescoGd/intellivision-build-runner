@@ -1,16 +1,17 @@
-# IBB - IntyBASIC Builder
+# Intellivision Build Runner
 
-[![GitHub Repo](https://img.shields.io/badge/GitHub-IBB%20Repo-0078D4?logo=github&logoColor=white)](https://github.com/FrancescoGd/ibb)
-[![Latest Release](https://img.shields.io/github/v/release/FrancescoGd/ibb?color=1DA1F2&label=Release&logo=starship&logoColor=white)](https://github.com/FrancescoGd/ibb/releases)
+[![GitHub Repo](https://img.shields.io/badge/GitHub-intellivision--build--runner-0078D4?logo=github&logoColor=white)](https://github.com/FrancescoGd/intellivision-build-runner)
+[![Latest Release](https://img.shields.io/github/v/release/FrancescoGd/intellivision-build-runner?color=1DA1F2&label=Release&logo=starship&logoColor=white)](https://github.com/FrancescoGd/intellivision-build-runner/releases)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-A _PowerShell_ script to compile, assemble, and launch _IntyBASIC_ projects automatically.
+A _PowerShell_ build runner that compiles, assembles, and runs **Intellivision** homebrew projects.
 
 ## Features
 
-- Automatic detection of required tools (`intybasic`, `as1600`, `jzintv` and optional `bin2rom`)
+- Automatic detection of required tools (`intybasic`, `as1600`, `jzintv`)
 - Syntax check-only mode (`-syntaxcheck`)
-- Output folder support (`-outputfolder`) to store final assets
+- Optional ROM output mode (`-rom`)
+- Output folder support (`-outputfolder`) to move final assets
 - Colored and clear status messages
 - Usage help and parameter aliases
 
@@ -18,41 +19,46 @@ A _PowerShell_ script to compile, assemble, and launch _IntyBASIC_ projects auto
 
 ### 1. Download
 
-- Download the latest version of `ibb.ps1` from the [GitHub repository](https://github.com/FrancescoGd/ibb/).
+- Download the latest version from the [GitHub repository](https://github.com/FrancescoGd/intellivision-build-runner/).
 - Place the script in a folder of your choice.
 
 ### 2. Make it Globally Available (Optional)
 
-- To run `ibb.ps1` from any location, add its folder to your `PATH` environment variable (either _user_ or _system_ vars).
+- To run `ivbr.ps1` from any location, add its folder to your `PATH` environment variable (either _user_ or _system_ vars).
 - Example:
-  - On Windows, open System Properties → Environment Variables → Edit `PATH` → Add the folder containing `ibb.ps1`.
+  - On Windows, open System Properties → Environment Variables → Edit `PATH` → Add the folder containing `ivbr.ps1`.
 
 ### 3. Requirements
 
 - **IntyBASIC**, **AS1600**, and **Jzintv** must be installed and available on your system.
 - These tools do not have installers; simply download and extract them, then add their folders to your `PATH` or set the appropriate environment variables (`INTV_BASIC_PATH`, `INTV_SDK_PATH`, `JZINTV_HOME`).
-- Optionally, you can also add **Bin2rom** for ROM file creation (it usually comes bundled with Jzintv and AS1600).
 
 ### 4. First Run
 
 - Open a PowerShell terminal.
-- Navigate to the folder containing `ibb.ps1` (or any folder, if you added it to `PATH`).
+- Navigate to the folder containing `ivbr.ps1` (or any folder, if you added it to `PATH`).
 - Run the script as shown in the usage examples:
 
 ```powershell
-.\ibb.ps1 <filename>
+.\ivbr.ps1 <filename>
 ```
 
 - For syntax check only:
 
 ```powershell
-.\ibb.ps1 <filename> -syntaxcheck
+.\ivbr.ps1 <filename> -syntaxcheck
+```
+
+- To output a ROM instead of BIN+CFG:
+
+```powershell
+.\ivbr.ps1 <filename> -rom
 ```
 
 - To move final assets to a custom folder:
 
 ```powershell
-.\ibb.ps1 <filename> -outputfolder dist
+.\ivbr.ps1 <filename> -outputfolder dist
 ```
 
 ### 5. Troubleshooting
@@ -69,13 +75,18 @@ A _PowerShell_ script to compile, assemble, and launch _IntyBASIC_ projects auto
 You can specify the source file either as the first positional argument or with the `-source` flag (and its aliases):
 
 ```powershell
-.\ibb.ps1 demo
-.\ibb.ps1 -source demo
-.\ibb.ps1 demo -syntaxcheck
-.\ibb.ps1 demo -outputfolder dist
+.\ivbr.ps1 demo
+.\ivbr.ps1 -source demo
+.\ivbr.ps1 demo -syntaxcheck
+.\ivbr.ps1 demo -rom
+.\ivbr.ps1 demo -outputfolder dist
+.\ivbr.ps1 demo -rom -outputfolder dist
 ```
 
-- `outputfolder <folder>`: Moves the final .bin, .rom, and .cfg files to the specified folder (created if it doesn't exist). Jzintv will be launched from that folder.
+- `-rom`: Produces a single `.rom` output using AS1600 (instead of the default `.bin` + `.cfg`).
+- `-outputfolder <folder>`: Moves the final output files to the specified folder (created if it doesn't exist) and launches Jzintv from there.
+  - In **BIN+CFG** mode (default): moves `.bin` and (if present) `.cfg`.
+  - In **ROM** mode (`-rom`): moves `.rom`.
 - All intermediate files remain in the working directory.
 
 ### Parameters and Aliases
@@ -92,6 +103,9 @@ You can specify the source file either as the first positional argument or with 
 
   No aliases yet
 
+- **-rom**
+  No aliases yet
+
 - **-help**
 
   Aliases: `-?`, `-h`
@@ -103,8 +117,8 @@ You can specify the source file either as the first positional argument or with 
 - For a quick usage summary, you can run:
 
   ```powershell
-  .\ibb.ps1 -?
-  .\ibb.ps1 -h
+  .\ivbr.ps1 -?
+  .\ivbr.ps1 -h
   ```
 
   Any of these - including running the script with no parameters at all - will display a concise help message and exit.
@@ -112,7 +126,7 @@ You can specify the source file either as the first positional argument or with 
 - For full documentation, use the built-in PowerShell help system:
 
   ```powershell
-  Get-Help .\ibb.ps1 -Full
+  Get-Help .\ivbr.ps1 -Full
   ```
 
   This will show all details, including parameters, examples, and notes.
@@ -127,4 +141,4 @@ This project is released under the MIT License.
 
 Website: [https://inty.furinkan.org/](https://inty.furinkan.org/)
 
-Repository: [https://github.com/FrancescoGd/ibb/](https://github.com/FrancescoGd/ibb/)
+Repository: [https://github.com/FrancescoGd/intellivision-build-runner/](https://github.com/FrancescoGd/intellivision-build-runner/)
