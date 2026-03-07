@@ -1,9 +1,9 @@
 <#
 .SYNOPSIS
-    Compile, assemble, and launch an IntyBASIC project automatically.
+    Compile, assemble, and launch an IntyBASIC source file automatically.
 
 .DESCRIPTION
-    IBB - IntyBASIC Builder is a PowerShell script that automates the compilation (.bas -> .asm),
+    Intellivision Build Runner (IVBR) is a PowerShell script that automates the compilation (.bas -> .asm),
     assembly (.asm -> .bin + .cfg by default, or .rom when -rom is specified), and execution of IntyBASIC source files
     using intybasic, as1600, and jzintv.
     It intelligently searches for required tools (PATH, environment variables, Get-Command) and displays clear, colored messages.
@@ -33,19 +33,19 @@
     Aliases: -h, -?
 
 .EXAMPLE
-    .\ibb.ps1 demo
+    .\ivbr.ps1 demo
     Compiles demo.bas, assembles it to demo.bin (+demo.cfg if generated), and launches it with Jzintv.
 
 .EXAMPLE
-    .\ibb.ps1 demo -rom
+    .\ivbr.ps1 demo -rom
     Compiles demo.bas, assembles it to demo.rom, and launches it with Jzintv.
 
 .EXAMPLE
-    .\ibb.ps1 demo -syntaxcheck
+    .\ivbr.ps1 demo -syntaxcheck
     Only compiles demo.bas to check for syntax errors.
 
 .EXAMPLE
-    .\ibb.ps1 demo -outputfolder dist
+    .\ivbr.ps1 demo -outputfolder dist
     Builds and moves final assets to the 'dist' folder, then launches Jzintv from there.
 
 .NOTES
@@ -55,18 +55,18 @@
 .LINK
     https://inty.furinkan.org/
 .LINK
-    https://github.com/FrancescoGd/ibb/
+    https://github.com/FrancescoGd/intellivision-build-runner/
 #>
 
 #===============================================================================
 #
-# IBB - IntyBASIC Builder
+# Intellivision Build Runner (IVBR)
 # Compile, Assemble and Launch an IntyBASIC source
 #
-# Version : 1.0.4
-# Author : fgd
+# Version   : 1.0.4
+# Author    : fgd
 # Copyright : 2025, present
-# Info : https://inty.furinkan.org/
+# Info      : https://inty.furinkan.org/
 #
 #===============================================================================
 
@@ -98,16 +98,16 @@ Clear-Host
 # Shows script usage if the user misses something or explicitly asks for it
 #===============================================================================
 function Show-Help {
-    Write-Host "`n💡 IBB - IntyBASIC Builder" -ForegroundColor Blue
+    Write-Host "`n💡 Intellivision Build Runner" -ForegroundColor Blue
     Write-Host "Compile, assemble and launch an IntyBASIC source file." -ForegroundColor Blue
     Write-Host "`nUsage:" -ForegroundColor Yellow
-    Write-Host ".\ibb.ps1 <filename> [-syntaxcheck] [-rom] [-outputfolder <folder>]" -ForegroundColor Green
+    Write-Host ".\ivbr.ps1 <filename> [-syntaxcheck] [-rom] [-outputfolder <folder>]" -ForegroundColor Green
     Write-Host "Examples:" -ForegroundColor Yellow
-    Write-Host ".\ibb.ps1 demo" -ForegroundColor Cyan
-    Write-Host ".\ibb.ps1 demo -rom" -ForegroundColor Cyan
-    Write-Host ".\ibb.ps1 demo -syntaxcheck" -ForegroundColor Cyan
-    Write-Host ".\ibb.ps1 demo -outputfolder dist" -ForegroundColor Cyan
-    Write-Host "`nFor detailed help, run: Get-Help .\ibb.ps1 -Full" -ForegroundColor Yellow
+    Write-Host ".\ivbr.ps1 demo" -ForegroundColor Cyan
+    Write-Host ".\ivbr.ps1 demo -rom" -ForegroundColor Cyan
+    Write-Host ".\ivbr.ps1 demo -syntaxcheck" -ForegroundColor Cyan
+    Write-Host ".\ivbr.ps1 demo -outputfolder dist" -ForegroundColor Cyan
+    Write-Host "`nFor detailed help, run: Get-Help .\ivbr.ps1 -Full" -ForegroundColor Yellow
     Write-Host "`n"
     exit
 }
