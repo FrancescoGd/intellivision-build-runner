@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
+## [1.0.5] - 2026-03-07
+
+### 🚀 Features
+
+- Remove bin2rom support and add native ROM output mode (-rom)
+
+### ⚙️ Miscellaneous Tasks
+
+- Merged some diffs
+- Rebrand to Intellivision Build Runner and rename CLI to ivbr
 ## [1.0.4] - 2026-01-24
 
 ### 🚀 Features
@@ -18,6 +28,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### 📚 Documentation
 
 - Update README and help for new features and parameter handling
+
+### ⚙️ Miscellaneous Tasks
+
+- *(release)* V1.0.4
 ## [1.0.3] - 2026-01-09
 
 ### 🚀 Features
