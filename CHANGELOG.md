@@ -6,7 +6,11 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
-<<<<<<< HEAD
+## [2.0.0] - 2026-10-02
+
+### 🚀 Features
+
+- Make builds friendlier and harder to break
 ## [1.0.5] - 2026-03-07
 
 ### 🚀 Features
@@ -15,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### ⚙️ Miscellaneous Tasks
 
+- *(release)* V1.0.5
 - Merged some diffs
 - Rebrand to Intellivision Build Runner and rename CLI to ivbr
 ## [1.0.4] - 2026-01-24
@@ -24,46 +29,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Add -outputfolder option to move final assets
 - Add optional bin2rom support for ROM file creation
 
-### 🚜 Refactor
-
-- Improve parameter handling and help support
-
 ### 📚 Documentation
 
 - Update README and help for new features and parameter handling
 
-### ⚙️ Miscellaneous Tasks
-
-- *(release)* V1.0.4
-=======
-
-## [1.0.5] - 2026-03-07
-
-### Features
-
-- Remove bin2rom support and add native ROM output mode (`-rom`)
-
-### Miscellaneous Tasks
-
-- Merge the release changes
-- Rebrand to Intellivision Build Runner and rename the CLI to `ivbr`
-
-## [1.0.4] - 2026-01-24
-
-### Features
-
-- Add `-outputfolder` option to move final assets
-- Add optional bin2rom support for ROM file creation
-
-### Refactoring
+### 🚜 Refactor
 
 - Improve parameter handling and help support
 
-### Documentation
+### ⚙️ Miscellaneous Tasks
 
-- Update README and help for new features and parameter handling
-
->>>>>>> b89e56d (feat: make builds friendlier and harder to break)
+- *(release)* V1.0.4
 ## [1.0.3] - 2026-01-09
 
 ### 🚀 Features
@@ -71,12 +47,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Improve script robustness and user feedback
 - Improve script robustness and user feedback
 
-<<<<<<< HEAD
 ### ⚙️ Miscellaneous Tasks
 
 - *(release)* V1.0.3
-=======
->>>>>>> b89e56d (feat: make builds friendlier and harder to break)
 ## [1.0.2] - 2026-01-09
 
 ### 📚 Documentation
@@ -86,7 +59,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### ⚙️ Miscellaneous Tasks
 
 - *(release)* V1.0.2
-
 ## [1.0.1] - 2026-01-08
 
 ### 🐛 Bug Fixes
@@ -96,7 +68,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### ⚙️ Miscellaneous Tasks
 
 - *(release)* V1.0.1
-
 ## [1.0.0] - 2026-01-08
 
 ### 🚀 Features
@@ -106,11 +77,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### ⚙️ Miscellaneous Tasks
 
 - *(release)* V1.0.0
-
 ---
 
 Supported commit types:
-
 - `feat`: New features
 - `fix`: Bug fixes
 - `docs`: Documentation changes

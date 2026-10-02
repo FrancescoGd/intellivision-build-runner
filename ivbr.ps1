@@ -62,7 +62,7 @@
 # Intellivision Build Runner (IVBR)
 # Compile, Assemble and Launch an IntyBASIC source
 #
-# Version   : 1.0.5
+# Version   : 2.0.0
 # Author    : fgd
 # Copyright : 2025, present
 # Info      : https://inty.furinkan.org/

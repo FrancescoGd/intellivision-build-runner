@@ -3,7 +3,7 @@
 # Intellivision Build Runner (IVBR) - Release Script
 # Generate changelog, commit, tag, and push a new release
 #
-# Version   : 1.0.5
+# Version   : 2.0.0
 # Author    : fgd
 # Copyright : 2025, present
 # Info      : https://inty.furinkan.org/
