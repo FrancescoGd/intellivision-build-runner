@@ -6,9 +6,11 @@
 
 A _PowerShell_ build runner that compiles, assembles, and runs **Intellivision** homebrew projects.
 
+![IVBR output screenshot](screenshot.png)
+
 ## Features
 
-- Automatic detection of required tools (`intybasic`, `as1600`, `jzintv`)
+- Automatic, best-effort detection of required tools (`intybasic`, `as1600`, `jzintv`)
 - Syntax check-only mode (`-syntaxcheck`)
 - Optional ROM output mode (`-rom`)
 - Output folder support (`-outputfolder`) to move final assets
@@ -30,7 +32,7 @@ A _PowerShell_ build runner that compiles, assembles, and runs **Intellivision**
 
 ### 3. Requirements
 
-- **IntyBASIC**, **AS1600**, and **Jzintv** must be installed and available on your system.
+- **IntyBASIC**, **AS1600**, and **Jzintv** must be installed and available on your system if you want to execute the complete process. On the other hand, IntyBASIC is the only hard requirement, if the other two are missing you can execute syntax checking, if you have everything except Jzintv you can execute syntax checking or compile+build.
 - These tools do not have installers; simply download and extract them, then add their folders to your `PATH` or set the appropriate environment variables (`INTV_BASIC_PATH`, `INTV_SDK_PATH`, `JZINTV_HOME`).
 
 ### 4. First Run
@@ -104,13 +106,14 @@ You can specify the source file either as the first positional argument or with 
   No aliases yet
 
 - **-rom**
+
   No aliases yet
 
 - **-help**
 
   Aliases: `-?`, `-h`
 
-💡 **Note** that you can omit the file extension in `<filename>` and it is also case-insensitive. Any path section will be purged too.
+💡 **Note** that you can omit the file extension in `<filename>` and it is also case-insensitive (in fact you can use whatever extension because it will get normalized). Any path section will be purged too.
 
 ### Getting Help
 
@@ -131,9 +134,14 @@ You can specify the source file either as the first positional argument or with 
 
   This will show all details, including parameters, examples, and notes.
 
+## Development Info
+
+- The script has a minimal _test suite_ using _Pester_ (also noted in the [TODO list](TODO.md))
+- It runs through `Invoke-ScriptAnalyzer` with the `InjectionHunter` ruleset ([read here for more info](https://learn.microsoft.com/en-us/powershell/scripting/security/preventing-script-injection?view=powershell-7.6#detecting-vulnerable-code-with-injection-hunter))
+
 ## License
 
-This project is released under the MIT License.
+This project is released under the MIT License see the [LICENSE](LICENSE) file or read it [on its website](https://spdx.org/licenses/MIT.html).
 
 **Commercial use is permitted, but I kindly ask to contact the author if you plan to include this software in a commercial product or service.**
 
